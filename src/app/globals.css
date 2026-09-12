@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --canvas-bg: #fbfbfa;
+    --canvas-subtle: #f2f5f0;
+    --obsidian: #252724;
+    --obsidian-hover: #3b3e39;
+    --hairline: rgba(0, 0, 0, 0.08);
+  }
+
+  body {
+    background-color: var(--canvas-bg);
+    color: #1a1b18;
+    font-family: var(--font-dm-sans), system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, .font-editorial {
+    font-family: var(--font-fraunces), Georgia, serif;
+  }
+}
+
+.editorial-card {
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 1rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.02);
+}
+
+.editorial-hairline {
+  border-color: rgba(0, 0, 0, 0.08);
+}
