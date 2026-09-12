@@ -5,6 +5,13 @@ import Link from 'next/link';
 import { AvailabilityStatus } from '@prisma/client';
 import { updateGarmentStatusAction } from '@/features/admin/actions/manage_catalog.action';
 import { Badge } from '@/core/ui/badge';
+import { Select } from '@/core/ui/select';
+
+const STATUS_OPTIONS = [
+  { value: 'AVAILABLE', label: 'Available in Salon' },
+  { value: 'RESERVED', label: 'Reserved for Viewing' },
+  { value: 'ARCHIVED', label: 'Permanent Archive' },
+];
 
 export interface CatalogManagementTableProps {
   initialCreations: {
@@ -79,16 +86,14 @@ export function CatalogManagementTable({ initialCreations }: CatalogManagementTa
                 <Badge variant={statusVariants[c.availabilityStatus]}>{c.availabilityStatus}</Badge>
               </td>
               <td className="px-5 py-4 text-right whitespace-nowrap">
-                <select
+                <Select
                   value={c.availabilityStatus}
-                  onChange={(e) => handleStatusToggle(c.id, e.target.value as AvailabilityStatus)}
+                  onChange={(val) => handleStatusToggle(c.id, val as AvailabilityStatus)}
+                  options={STATUS_OPTIONS}
                   disabled={updatingId === c.id}
-                  className="rounded-lg border border-black/10 bg-white px-2.5 py-1 text-xs text-editorial-text focus:outline-none focus:ring-1 focus:ring-sage-500"
-                >
-                  <option value="AVAILABLE">Available in Salon</option>
-                  <option value="RESERVED">Reserved for Viewing</option>
-                  <option value="ARCHIVED">Permanent Archive</option>
-                </select>
+                  align="right"
+                  ariaLabel={`Update status for ${c.pieceCode}`}
+                />
               </td>
             </tr>
           ))}

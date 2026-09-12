@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { Input } from '@/core/ui/input';
 import { Button } from '@/core/ui/button';
 import { Card } from '@/core/ui/card';
+import { Select } from '@/core/ui/select';
 import { submitInquiryAction } from '@/features/inquiries/actions/submit_inquiry.action';
 import { InquirySuccessDialog } from '@/features/inquiries/components/inquiry_success_dialog';
 
@@ -14,6 +15,14 @@ export interface ViewingInquiryFormProps {
   initialPatronName?: string;
   initialPatronEmail?: string;
 }
+
+const TIME_SLOTS = [
+  { value: '10:00 - 11:30', label: 'Morning Salon: 10:00 - 11:30' },
+  { value: '11:30 - 13:00', label: 'Midday Salon: 11:30 - 13:00' },
+  { value: '14:00 - 15:30', label: 'Afternoon Salon I: 14:00 - 15:30' },
+  { value: '15:30 - 17:00', label: 'Afternoon Salon II: 15:30 - 17:00' },
+  { value: '17:00 - 18:30', label: 'Twilight Salon: 17:00 - 18:30' },
+];
 
 export function ViewingInquiryForm({
   initialPatronName = '',
@@ -32,7 +41,7 @@ export function ViewingInquiryForm({
   const [guestEmail, setGuestEmail] = useState(activePatronEmail);
   const [guestPhone, setGuestPhone] = useState('');
   const [preferredDate, setPreferredDate] = useState('');
-  const [preferredTimeSlot, setPreferredTimeSlot] = useState('11:00 - 12:30');
+  const [preferredTimeSlot, setPreferredTimeSlot] = useState(TIME_SLOTS[0].value);
   const [pieceCode, setPieceCode] = useState(queryPieceCode);
   const [fittingNotes, setFittingNotes] = useState('');
 
@@ -177,17 +186,13 @@ export function ViewingInquiryForm({
               <label className="block text-xs font-medium uppercase tracking-wider text-editorial-muted">
                 Preferred Time Window
               </label>
-              <select
+              <Select
                 value={preferredTimeSlot}
-                onChange={(e) => setPreferredTimeSlot(e.target.value)}
-                className="w-full rounded-xl border border-black/10 bg-white px-3.5 py-2.5 text-sm text-editorial-text focus:outline-none focus:ring-1 focus:ring-sage-500"
-              >
-                <option value="10:00 - 11:30">Morning Salon: 10:00 &ndash; 11:30</option>
-                <option value="11:30 - 13:00">Midday Salon: 11:30 &ndash; 13:00</option>
-                <option value="14:00 - 15:30">Afternoon Salon I: 14:00 &ndash; 15:30</option>
-                <option value="15:30 - 17:00">Afternoon Salon II: 15:30 &ndash; 17:00</option>
-                <option value="17:00 - 18:30">Twilight Salon: 17:00 &ndash; 18:30</option>
-              </select>
+                onChange={(val) => setPreferredTimeSlot(val)}
+                options={TIME_SLOTS}
+                className="w-full"
+                ariaLabel="Preferred Time Window"
+              />
             </div>
           </div>
 
