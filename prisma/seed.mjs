@@ -9,7 +9,9 @@ async function main() {
   // 1. Seed Fabrics
   const fabric1 = await prisma.fabric.upsert({
     where: { code: 'TX-VAL-01' },
-    update: {},
+    update: {
+      swatchImageUrl: '/images/textiles/tx-val-01.jpg',
+    },
     create: {
       code: 'TX-VAL-01',
       name: 'Super 150s Imperial Worsted Wool',
@@ -20,13 +22,15 @@ async function main() {
       weavePattern: 'Subtle Herringbone',
       sourcingRationale:
         'Sourced from the historic Valois mill, prized for its supple hand, natural crease resistance, and rich midnight lustre under salon lighting.',
-      swatchImageUrl: 'https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?auto=format&fit=crop&w=800&q=80',
+      swatchImageUrl: '/images/textiles/tx-val-01.jpg',
     },
   });
 
   const fabric2 = await prisma.fabric.upsert({
     where: { code: 'TX-VAL-02' },
-    update: {},
+    update: {
+      swatchImageUrl: '/images/textiles/tx-val-02.jpg',
+    },
     create: {
       code: 'TX-VAL-02',
       name: 'Aurelian Cloud Cashmere Flannel',
@@ -37,13 +41,15 @@ async function main() {
       weavePattern: 'Brushed Twill',
       sourcingRationale:
         'Harvested exclusively from mountain combs, offering exceptional thermal insulation with a feather-weight drape suitable for soft-tailored outerwear.',
-      swatchImageUrl: 'https://images.unsplash.com/photo-1579298245158-33e8f568f7d3?auto=format&fit=crop&w=800&q=80',
+      swatchImageUrl: '/images/textiles/tx-val-02.jpg',
     },
   });
 
   const fabric3 = await prisma.fabric.upsert({
     where: { code: 'TX-VAL-03' },
-    update: {},
+    update: {
+      swatchImageUrl: '/images/textiles/tx-val-03.jpg',
+    },
     create: {
       code: 'TX-VAL-03',
       name: 'Vintage Irish Deadstock Heavy Linen',
@@ -54,13 +60,15 @@ async function main() {
       weavePattern: 'Rustic Plain Weave',
       sourcingRationale:
         'Salvaged archive bolts from 1974. Possesses a crisp structural backbone that softens gracefully with each salon fitting and wear.',
-      swatchImageUrl: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=800&q=80',
+      swatchImageUrl: '/images/textiles/tx-val-03.jpg',
     },
   });
 
   const fabric4 = await prisma.fabric.upsert({
     where: { code: 'TX-VAL-04' },
-    update: {},
+    update: {
+      swatchImageUrl: '/images/textiles/tx-val-04.jpg',
+    },
     create: {
       code: 'TX-VAL-04',
       name: 'Silk-Velvet Noir Brocade',
@@ -71,14 +79,20 @@ async function main() {
       weavePattern: 'Jacquard Brocade',
       sourcingRationale:
         'Woven on restored 19th-century mechanical jacquard looms, creating deep light absorption and tactile contrast for formal wear.',
-      swatchImageUrl: 'https://images.unsplash.com/photo-1607344645866-009c320c5ab8?auto=format&fit=crop&w=800&q=80',
+      swatchImageUrl: '/images/textiles/tx-val-04.jpg',
     },
   });
 
   // 2. Seed Catalog Creations
+  const creation1Images = JSON.stringify([
+    '/images/garments/mvc-2026-j04.jpg',
+    '/images/textiles/tx-val-01.jpg',
+  ]);
   const creation1 = await prisma.catalogCreation.upsert({
     where: { pieceCode: 'MVC-2026-J04' },
-    update: {},
+    update: {
+      images: creation1Images,
+    },
     create: {
       pieceCode: 'MVC-2026-J04',
       title: 'Double-Breasted Silk-Wool Peaked Coat',
@@ -95,17 +109,20 @@ async function main() {
       measurements: 'Chest: 40R | Shoulder: 18.2" | Sleeve: 25.5" | Back Length: 41.0"',
       valuationAurum: 2450,
       availabilityStatus: 'AVAILABLE',
-      images: JSON.stringify([
-        'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1200&q=80',
-      ]),
+      images: creation1Images,
       fabricId: fabric1.id,
     },
   });
 
+  const creation2Images = JSON.stringify([
+    '/images/garments/mvc-2026-t02.jpg',
+    '/images/textiles/tx-val-02.jpg',
+  ]);
   const creation2 = await prisma.catalogCreation.upsert({
     where: { pieceCode: 'MVC-2026-T02' },
-    update: {},
+    update: {
+      images: creation2Images,
+    },
     create: {
       pieceCode: 'MVC-2026-T02',
       title: 'Sculpted Neapolitan Flannel Blazer',
@@ -122,17 +139,20 @@ async function main() {
       measurements: 'Chest: 38R | Shoulder: 17.5" | Sleeve: 25.0" | Back Length: 29.5"',
       valuationAurum: 1850,
       availabilityStatus: 'AVAILABLE',
-      images: JSON.stringify([
-        'https://images.unsplash.com/photo-1592878904946-b3cd8ae243d0?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1617127365659-c47fa864d8bc?auto=format&fit=crop&w=1200&q=80',
-      ]),
+      images: creation2Images,
       fabricId: fabric2.id,
     },
   });
 
+  const creation3Images = JSON.stringify([
+    '/images/garments/mvc-2026-x01.jpg',
+    '/images/textiles/tx-val-04.jpg',
+  ]);
   const creation3 = await prisma.catalogCreation.upsert({
     where: { pieceCode: 'MVC-2026-X01' },
-    update: {},
+    update: {
+      images: creation3Images,
+    },
     create: {
       pieceCode: 'MVC-2026-X01',
       title: 'Midnight Solstice Dinner Jacket',
@@ -149,17 +169,20 @@ async function main() {
       measurements: 'Chest: 42R | Shoulder: 18.8" | Sleeve: 26.0" | Back Length: 30.5"',
       valuationAurum: 3100,
       availabilityStatus: 'RESERVED',
-      images: JSON.stringify([
-        'https://images.unsplash.com/photo-1555069519-127aadedf1ee?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=1200&q=80',
-      ]),
+      images: creation3Images,
       fabricId: fabric4.id,
     },
   });
 
+  const creation4Images = JSON.stringify([
+    '/images/garments/mvc-2026-w08.jpg',
+    '/images/textiles/tx-val-01.jpg',
+  ]);
   const creation4 = await prisma.catalogCreation.upsert({
     where: { pieceCode: 'MVC-2026-W08' },
-    update: {},
+    update: {
+      images: creation4Images,
+    },
     create: {
       pieceCode: 'MVC-2026-W08',
       title: 'Structured Hourglass Tailored Jacket',
@@ -176,17 +199,20 @@ async function main() {
       measurements: 'Bust: 36" | Waist: 28" | Hip: 38" | Shoulder: 16.0" | Back Length: 26.5"',
       valuationAurum: 2200,
       availabilityStatus: 'AVAILABLE',
-      images: JSON.stringify([
-        'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1200&q=80',
-      ]),
+      images: creation4Images,
       fabricId: fabric1.id,
     },
   });
 
+  const creation5Images = JSON.stringify([
+    '/images/garments/mvc-2026-y03.jpg',
+    '/images/textiles/tx-val-03.jpg',
+  ]);
   const creation5 = await prisma.catalogCreation.upsert({
     where: { pieceCode: 'MVC-2026-Y03' },
-    update: {},
+    update: {
+      images: creation5Images,
+    },
     create: {
       pieceCode: 'MVC-2026-Y03',
       title: 'Youth Sartorial Debut Waistcoat Ensemble',
@@ -203,16 +229,20 @@ async function main() {
       measurements: 'Chest: 34S | Waist: 28" | Back Length: 22.0"',
       valuationAurum: 950,
       availabilityStatus: 'AVAILABLE',
-      images: JSON.stringify([
-        'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=1200&q=80',
-      ]),
+      images: creation5Images,
       fabricId: fabric3.id,
     },
   });
 
+  const creation6Images = JSON.stringify([
+    '/images/garments/mvc-2026-m05.jpg',
+    '/images/textiles/tx-val-02.jpg',
+  ]);
   const creation6 = await prisma.catalogCreation.upsert({
     where: { pieceCode: 'MVC-2026-M05' },
-    update: {},
+    update: {
+      images: creation6Images,
+    },
     create: {
       pieceCode: 'MVC-2026-M05',
       title: 'Mature Classical Donegal Tweed Overcoat',
@@ -229,9 +259,7 @@ async function main() {
       measurements: 'Chest: 44R | Shoulder: 19.5" | Sleeve: 26.5" | Back Length: 43.5"',
       valuationAurum: 2750,
       availabilityStatus: 'AVAILABLE',
-      images: JSON.stringify([
-        'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1200&q=80',
-      ]),
+      images: creation6Images,
       fabricId: fabric2.id,
     },
   });
