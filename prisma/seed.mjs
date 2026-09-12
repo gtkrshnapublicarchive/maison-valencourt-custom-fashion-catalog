@@ -278,12 +278,24 @@ async function main() {
     },
   });
 
+  // Rename any legacy @aurum.client emails if present
+  await prisma.user.updateMany({
+    where: { email: 'helena.vance@aurum.client' },
+    data: { email: 'helena.vance@valencourt.patron' },
+  });
+  await prisma.user.updateMany({
+    where: { email: 'julian.sterling@aurum.client' },
+    data: { email: 'julian.sterling@valencourt.patron' },
+  });
+
   const patron1Password = await bcrypt.hash('PatronVance2026!', 12);
   const patron1 = await prisma.user.upsert({
-    where: { email: 'helena.vance@aurum.client' },
-    update: {},
+    where: { email: 'helena.vance@valencourt.patron' },
+    update: {
+      email: 'helena.vance@valencourt.patron',
+    },
     create: {
-      email: 'helena.vance@aurum.client',
+      email: 'helena.vance@valencourt.patron',
       passwordHash: patron1Password,
       name: 'Helena Vance',
       role: 'PATRON',
@@ -293,10 +305,12 @@ async function main() {
 
   const patron2Password = await bcrypt.hash('PatronJulian2026!', 12);
   const patron2 = await prisma.user.upsert({
-    where: { email: 'julian.sterling@aurum.client' },
-    update: {},
+    where: { email: 'julian.sterling@valencourt.patron' },
+    update: {
+      email: 'julian.sterling@valencourt.patron',
+    },
     create: {
-      email: 'julian.sterling@aurum.client',
+      email: 'julian.sterling@valencourt.patron',
       passwordHash: patron2Password,
       name: 'Julian Sterling',
       role: 'PATRON',
