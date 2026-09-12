@@ -16,6 +16,12 @@ export async function submitInquiryAction(data: ViewingInquiryInput): Promise<Su
   try {
     const validated = ViewingInquirySchema.parse(data);
     const session = await getServerSession(authOptions);
+    if (!session?.user?.id) {
+      return {
+        success: false,
+        error: 'Authentication required. Please sign in as an authenticated patron to book a salon viewing appointment.',
+      };
+    }
 
     let creationIdToLink: string | null = null;
     if (validated.creationId && validated.creationId.trim()) {
@@ -43,7 +49,7 @@ export async function submitInquiryAction(data: ViewingInquiryInput): Promise<Su
         preferredTimeSlot: validated.preferredTimeSlot,
         fittingNotes: cleanNotes,
         creationId: creationIdToLink,
-        patronId: session?.user?.id || null,
+        patronId: session.user.id,
         status: 'NEW',
       },
     });
