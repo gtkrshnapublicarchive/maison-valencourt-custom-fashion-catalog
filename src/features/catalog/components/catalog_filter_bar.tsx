@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { Select } from '@/core/ui/select';
 
 const DEMOGRAPHICS = [
   { id: 'ALL', label: 'All Collections' },
@@ -10,6 +11,23 @@ const DEMOGRAPHICS = [
   { id: 'Universal / Fluid', label: 'Universal / Fluid' },
   { id: 'Youth / Debut', label: 'Youth / Debut' },
   { id: 'Mature / Classical', label: 'Mature / Classical' },
+];
+
+const GARMENT_TYPES = [
+  { value: 'ALL', label: 'All Garment Silhouettes' },
+  { value: 'Tailored Jackets', label: 'Tailored Jackets' },
+  { value: 'Overcoats', label: 'Overcoats' },
+  { value: 'Tuxedos / Formalwear', label: 'Tuxedos / Formalwear' },
+  { value: 'Waistcoats', label: 'Waistcoats' },
+  { value: 'Structured Trousers', label: 'Structured Trousers' },
+];
+
+const COLLECTION_THEMES = [
+  { value: 'ALL', label: 'All Collection Themes' },
+  { value: 'Atelier Heritage Series', label: 'Atelier Heritage Series' },
+  { value: 'Midnight Formal', label: 'Midnight Formal' },
+  { value: 'Autumn Tweed Expedition', label: 'Autumn Tweed Expedition' },
+  { value: 'Architectural Minimalist', label: 'Architectural Minimalist' },
 ];
 
 export function CatalogFilterBar() {
@@ -54,32 +72,19 @@ export function CatalogFilterBar() {
 
       {/* Secondary dropdown selectors */}
       <div className="flex flex-wrap items-center gap-3">
-        <select
+        <Select
           value={currentType}
-          onChange={(e) => updateParam('garmentType', e.target.value)}
-          className="rounded-xl border border-black/10 bg-white px-3.5 py-2 text-xs text-editorial-text focus:outline-none focus:ring-1 focus:ring-sage-500"
-          aria-label="Filter by Garment Type"
-        >
-          <option value="ALL">All Garment Silhouettes</option>
-          <option value="Tailored Jackets">Tailored Jackets</option>
-          <option value="Overcoats">Overcoats</option>
-          <option value="Tuxedos / Formalwear">Tuxedos / Formalwear</option>
-          <option value="Waistcoats">Waistcoats</option>
-          <option value="Structured Trousers">Structured Trousers</option>
-        </select>
+          onChange={(val) => updateParam('garmentType', val)}
+          options={GARMENT_TYPES}
+          ariaLabel="Filter by Garment Type"
+        />
 
-        <select
+        <Select
           value={currentTheme}
-          onChange={(e) => updateParam('collectionTheme', e.target.value)}
-          className="rounded-xl border border-black/10 bg-white px-3.5 py-2 text-xs text-editorial-text focus:outline-none focus:ring-1 focus:ring-sage-500"
-          aria-label="Filter by Collection Theme"
-        >
-          <option value="ALL">All Collection Themes</option>
-          <option value="Atelier Heritage Series">Atelier Heritage Series</option>
-          <option value="Midnight Formal">Midnight Formal</option>
-          <option value="Autumn Tweed Expedition">Autumn Tweed Expedition</option>
-          <option value="Architectural Minimalist">Architectural Minimalist</option>
-        </select>
+          onChange={(val) => updateParam('collectionTheme', val)}
+          options={COLLECTION_THEMES}
+          ariaLabel="Filter by Collection Theme"
+        />
       </div>
     </div>
   );

@@ -2,6 +2,23 @@
 
 import React from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { Select } from '@/core/ui/select';
+
+const SEASONS = [
+  { value: 'ALL', label: 'All Seasons & Climates' },
+  { value: 'Four Seasons', label: 'Four Seasons' },
+  { value: 'Autumn / Winter', label: 'Autumn / Winter' },
+  { value: 'Spring / Summer', label: 'Spring / Summer' },
+  { value: 'Evening Formal', label: 'Evening Formal' },
+];
+
+const WEAVE_PATTERNS = [
+  { value: 'ALL', label: 'All Weave Patterns' },
+  { value: 'Subtle Herringbone', label: 'Subtle Herringbone' },
+  { value: 'Brushed Twill', label: 'Brushed Twill' },
+  { value: 'Rustic Plain Weave', label: 'Rustic Plain Weave' },
+  { value: 'Jacquard Brocade', label: 'Jacquard Brocade' },
+];
 
 export function TextileFilterBar() {
   const router = useRouter();
@@ -22,31 +39,19 @@ export function TextileFilterBar() {
 
   return (
     <div className="flex flex-wrap items-center gap-3 mb-8">
-      <select
+      <Select
         value={currentSeason}
-        onChange={(e) => updateParam('season', e.target.value)}
-        className="rounded-xl border border-black/10 bg-white px-3.5 py-2 text-xs text-editorial-text focus:outline-none focus:ring-1 focus:ring-sage-500"
-        aria-label="Filter by Season"
-      >
-        <option value="ALL">All Seasons &amp; Climates</option>
-        <option value="Four Seasons">Four Seasons</option>
-        <option value="Autumn / Winter">Autumn / Winter</option>
-        <option value="Spring / Summer">Spring / Summer</option>
-        <option value="Evening Formal">Evening Formal</option>
-      </select>
+        onChange={(val) => updateParam('season', val)}
+        options={SEASONS}
+        ariaLabel="Filter by Season"
+      />
 
-      <select
+      <Select
         value={currentWeave}
-        onChange={(e) => updateParam('weavePattern', e.target.value)}
-        className="rounded-xl border border-black/10 bg-white px-3.5 py-2 text-xs text-editorial-text focus:outline-none focus:ring-1 focus:ring-sage-500"
-        aria-label="Filter by Weave Pattern"
-      >
-        <option value="ALL">All Weave Patterns</option>
-        <option value="Subtle Herringbone">Subtle Herringbone</option>
-        <option value="Brushed Twill">Brushed Twill</option>
-        <option value="Rustic Plain Weave">Rustic Plain Weave</option>
-        <option value="Jacquard Brocade">Jacquard Brocade</option>
-      </select>
+        onChange={(val) => updateParam('weavePattern', val)}
+        options={WEAVE_PATTERNS}
+        ariaLabel="Filter by Weave Pattern"
+      />
     </div>
   );
 }
