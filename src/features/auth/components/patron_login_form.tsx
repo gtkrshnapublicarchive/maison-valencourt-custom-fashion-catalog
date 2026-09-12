@@ -80,17 +80,11 @@ export function PatronLoginForm() {
         </Button>
       </form>
 
-      <div className="mt-6 pt-6 border-t border-black/5 text-center text-xs text-editorial-muted space-y-2">
+      <div className="mt-6 pt-6 border-t border-black/5 text-center text-xs text-editorial-muted">
         <p>
           First time visiting our digital showcase?{' '}
           <Link href="/patron/register" className="font-medium text-obsidian underline underline-offset-2">
             Register as Patron
-          </Link>
-        </p>
-        <p className="text-[11px]">
-          Atelier staff access only:{' '}
-          <Link href="/admin/login" className="text-editorial-muted hover:text-editorial-text">
-            Director Login
           </Link>
         </p>
       </div>
