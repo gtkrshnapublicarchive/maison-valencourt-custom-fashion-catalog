@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import Link from 'next/link';
 import { Input } from '@/core/ui/input';
@@ -11,6 +11,9 @@ import { registerPatronAction } from '@/features/auth/actions/register_patron.ac
 
 export function PatronRegisterForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get('callbackUrl') || '/patron/wishlist';
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [cityOrRegion, setCityOrRegion] = useState('');
@@ -44,9 +47,9 @@ export function PatronRegisterForm() {
     });
 
     if (loginRes?.error) {
-      router.push('/patron/login?registered=true');
+      router.push(`/patron/login?registered=true&callbackUrl=${encodeURIComponent(callbackUrl)}`);
     } else {
-      router.push('/patron/wishlist');
+      router.push(callbackUrl);
       router.refresh();
     }
   };
@@ -107,7 +110,10 @@ export function PatronRegisterForm() {
       <div className="mt-6 pt-6 border-t border-black/5 text-center text-xs text-editorial-muted">
         <p>
           Already an authenticated patron?{' '}
-          <Link href="/patron/login" className="font-medium text-obsidian underline underline-offset-2">
+          <Link
+            href={`/patron/login${callbackUrl ? `?callbackUrl=${encodeURIComponent(callbackUrl)}` : ''}`}
+            className="font-medium text-obsidian underline underline-offset-2"
+          >
             Sign in here
           </Link>
         </p>

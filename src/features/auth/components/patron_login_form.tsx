@@ -83,7 +83,10 @@ export function PatronLoginForm() {
       <div className="mt-6 pt-6 border-t border-black/5 text-center text-xs text-editorial-muted">
         <p>
           First time visiting our digital showcase?{' '}
-          <Link href="/patron/register" className="font-medium text-obsidian underline underline-offset-2">
+          <Link
+            href={`/patron/register${callbackUrl ? `?callbackUrl=${encodeURIComponent(callbackUrl)}` : ''}`}
+            className="font-medium text-obsidian underline underline-offset-2"
+          >
             Register as Patron
           </Link>
         </p>
