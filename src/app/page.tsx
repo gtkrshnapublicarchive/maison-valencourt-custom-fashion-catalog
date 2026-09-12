@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { prisma } from '@/core/database/prisma';
 import { CatalogCard } from '@/features/catalog/components/catalog_card';
 import { TextileCard } from '@/features/textiles/components/textile_card';
@@ -34,7 +35,7 @@ export default async function HomePage() {
       {/* 1. Hero Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:text-left">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          <div className="lg:col-span-8 space-y-6">
+          <div className="lg:col-span-7 space-y-6">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sage-100 text-sage-600 text-xs font-medium border border-sage-200">
               <Sparkles className="w-3.5 h-3.5" />
               <span>Sartorial Concept Exhibition &bull; Autumn / Winter 2026</span>
@@ -67,26 +68,25 @@ export default async function HomePage() {
             </div>
           </div>
 
-          <div className="lg:col-span-4 hidden lg:block">
-            <div className="p-6 rounded-2xl bg-white border border-black/10 shadow-sm space-y-4">
-              <span className="text-[10px] uppercase tracking-widest text-editorial-muted font-mono block">
-                Atelier Blueprint &bull; Fictional Case Study
-              </span>
-              <h3 className="font-editorial text-xl text-editorial-text">Universal Sartorial Scope</h3>
-              <ul className="text-xs text-editorial-muted space-y-2.5">
-                <li className="flex items-center gap-2">
-                  <Scissors className="w-3.5 h-3.5 text-sage-600 flex-shrink-0" />
-                  <span>Full floating horsehair canvas anatomy</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Feather className="w-3.5 h-3.5 text-sage-600 flex-shrink-0" />
-                  <span>Curated designer model (not made-to-measure orders)</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Compass className="w-3.5 h-3.5 text-sage-600 flex-shrink-0" />
-                  <span>14 Rue de l&apos;Aube, Grand District, Aurelia City</span>
-                </li>
-              </ul>
+          <div className="lg:col-span-5 hidden lg:block">
+            <div className="relative rounded-2xl overflow-hidden border border-black/10 shadow-md bg-black/5 aspect-[4/5]">
+              <Image
+                src="/images/atelier_hero_showcase.jpg"
+                alt="Maison Valencourt Atelier Showcase, 14 Rue de l'Aube"
+                fill
+                priority
+                sizes="(max-width: 1200px) 50vw, 40vw"
+                className="object-cover object-center"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent flex flex-col justify-end p-6 text-white">
+                <span className="text-[10px] uppercase tracking-widest text-sage-200 font-mono block mb-1">
+                  Atelier Showcase &bull; 14 Rue de l&apos;Aube
+                </span>
+                <h3 className="font-editorial text-xl font-medium">Grand District Salon</h3>
+                <p className="text-xs text-white/80 mt-1">
+                  Full floating horsehair canvas anatomy &bull; Curated artisan creations
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -130,7 +130,7 @@ export default async function HomePage() {
                 leadArtisan={item.leadArtisan}
                 valuationAurum={item.valuationAurum}
                 availabilityStatus={item.availabilityStatus}
-                imageUrl={imagesList[0] || 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35'}
+                imageUrl={imagesList[0] || '/images/garments/mvc-2026-j04.jpg'}
                 fabricName={item.fabric?.name}
               />
             );

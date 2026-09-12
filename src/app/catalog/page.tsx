@@ -62,7 +62,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
               leadArtisan={item.leadArtisan}
               valuationAurum={item.valuationAurum}
               availabilityStatus={item.availabilityStatus}
-              imageUrl={item.imagesList[0] || 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35'}
+              imageUrl={item.imagesList[0] || '/images/garments/mvc-2026-j04.jpg'}
               fabricName={item.fabric?.name}
             />
           ))}

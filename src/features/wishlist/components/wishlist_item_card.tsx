@@ -53,7 +53,7 @@ export function WishlistItemCard({ id, creation, onRemoved }: WishlistItemCardPr
     <Card className="flex flex-col sm:flex-row overflow-hidden border border-black/10 hover:shadow-sm transition-all">
       <div className="relative w-full sm:w-48 aspect-[3/4] sm:aspect-auto bg-black/5 flex-shrink-0">
         <Image
-          src={creation.imagesList[0] || 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35'}
+          src={creation.imagesList[0] || '/images/garments/mvc-2026-j04.jpg'}
           alt={creation.title}
           fill
           className="object-cover object-center"
