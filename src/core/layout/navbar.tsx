@@ -99,6 +99,17 @@ export function Navbar() {
                 <Sparkles className="w-3.5 h-3.5 mr-1.5 text-amber-600" />
                 My Reviews
               </Link>
+              <Link
+                href="/patron/profile"
+                className={`inline-flex items-center text-xs font-medium px-3 py-2 rounded-xl border transition-colors ${
+                  pathname === '/patron/profile'
+                    ? 'bg-sage-100 border-sage-500 text-obsidian font-semibold'
+                    : 'border-black/10 bg-white text-editorial-text hover:bg-sage-50'
+                }`}
+              >
+                <UserIcon className="w-3.5 h-3.5 mr-1.5 text-sage-600" />
+                Profile
+              </Link>
               <button
                 onClick={() => signOut({ callbackUrl: '/' })}
                 className="p-2 rounded-xl text-editorial-muted hover:text-editorial-text hover:bg-black/5 transition-colors"

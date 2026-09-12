@@ -69,6 +69,11 @@ export function Footer() {
                   Submit Testimonial
                 </Link>
               </li>
+              <li>
+                <Link href="/patron/profile" className="hover:text-editorial-text transition-colors">
+                  Profile Settings
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
