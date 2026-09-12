@@ -1,0 +1,154 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  PATRON
+  ADMIN
+}
+
+enum AvailabilityStatus {
+  AVAILABLE
+  RESERVED
+  ARCHIVED
+}
+
+enum TestimonialStatus {
+  PENDING_REVIEW
+  APPROVED
+  REJECTED
+  DELETION_PENDING
+  DELETED
+}
+
+enum InquiryStatus {
+  NEW
+  STAGED
+  COMPLETED
+  ARCHIVED
+}
+
+model User {
+  id           String        @id @default(cuid())
+  email        String        @unique
+  passwordHash String
+  name         String
+  role         Role          @default(PATRON)
+  cityOrRegion String?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  wishlistItems WishlistItem[]
+  testimonials  Testimonial[]
+  inquiries     ViewingInquiry[]
+
+  @@map("users")
+}
+
+model Fabric {
+  id                String            @id @default(cuid())
+  code              String            @unique
+  name              String
+  millName          String
+  composition       String
+  weightGsm         Int
+  season            String
+  weavePattern      String
+  sourcingRationale String
+  swatchImageUrl    String
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  creations         CatalogCreation[]
+
+  @@map("fabrics")
+}
+
+model CatalogCreation {
+  id                 String             @id @default(cuid())
+  pieceCode          String             @unique
+  title              String
+  demographic        String
+  garmentType        String
+  collectionTheme    String
+  leadArtisan        String
+  conceptStory       String
+  constructionType   String
+  lapelStyle         String
+  ventStyle          String
+  handStitchingNotes String
+  measurements       String
+  valuationAurum     Int
+  availabilityStatus AvailabilityStatus @default(AVAILABLE)
+  images             String
+  fabricId           String?
+  fabric             Fabric?            @relation(fields: [fabricId], references: [id], onDelete: SetNull)
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+
+  wishlistItems      WishlistItem[]
+  inquiries          ViewingInquiry[]
+
+  @@map("catalog_creations")
+}
+
+model WishlistItem {
+  id         String          @id @default(cuid())
+  patronId   String
+  creationId String
+  createdAt  DateTime        @default(now())
+
+  patron     User            @relation(fields: [patronId], references: [id], onDelete: Cascade)
+  creation   CatalogCreation @relation(fields: [creationId], references: [id], onDelete: Cascade)
+
+  @@unique([patronId, creationId])
+  @@map("wishlist_items")
+}
+
+model Testimonial {
+  id                 String            @id @default(cuid())
+  patronId           String
+  authorName         String
+  cityOrRegion       String
+  creationReferenced String?
+  rating             Int
+  content            String
+  status             TestimonialStatus @default(PENDING_REVIEW)
+  rejectionReason    String?
+  deletionReason     String?
+  reviewedAt         DateTime?
+  reviewedById       String?
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+
+  patron             User              @relation(fields: [patronId], references: [id], onDelete: Cascade)
+
+  @@index([status, reviewedAt])
+  @@map("testimonials")
+}
+
+model ViewingInquiry {
+  id                String          @id @default(cuid())
+  patronId          String?
+  creationId        String?
+  guestName         String
+  guestEmail        String
+  guestPhone        String?
+  preferredDate     String
+  preferredTimeSlot String
+  fittingNotes      String?
+  status            InquiryStatus   @default(NEW)
+  fittingSuite      String?
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+
+  patron            User?           @relation(fields: [patronId], references: [id], onDelete: SetNull)
+  creation          CatalogCreation? @relation(fields: [creationId], references: [id], onDelete: SetNull)
+
+  @@map("viewing_inquiries")
+}

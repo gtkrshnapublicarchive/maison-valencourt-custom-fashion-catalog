@@ -1,0 +1,39 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: valencourt_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: valencourt_user
+      POSTGRES_PASSWORD: valencourt_pass
+      POSTGRES_DB: valencourt_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U valencourt_user -d valencourt_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: valencourt_web
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: "postgresql://valencourt_user:valencourt_pass@postgres:5432/valencourt_db?schema=public"
+      NEXTAUTH_URL: "http://localhost:3000"
+      NEXTAUTH_SECRET: "maison-valencourt-dev-secret-key-32chars-min"
+      ADMIN_INITIAL_EMAIL: "director@valencourt.atelier"
+      ADMIN_INITIAL_PASSWORD: "ValencourtAtelier2026!"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
