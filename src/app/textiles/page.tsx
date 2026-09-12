@@ -8,6 +8,8 @@ export const metadata = {
   description: 'Rare wools, vintage deadstock cloths, and cashmere weaves curated for Maison Valencourt artisan creations.',
 };
 
+export const dynamic = 'force-dynamic';
+
 interface TextilesPageProps {
   searchParams: Promise<{
     season?: string;

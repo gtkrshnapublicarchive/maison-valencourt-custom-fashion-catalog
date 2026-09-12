@@ -8,6 +8,8 @@ export const metadata = {
   description: 'Original artisan custom garments designed and handcrafted by Maison Valencourt master tailors.',
 };
 
+export const dynamic = 'force-dynamic';
+
 interface CatalogPageProps {
   searchParams: Promise<{
     demographic?: string;

@@ -9,6 +9,8 @@ export const metadata = {
   description: 'Verified reflections and accolades from patrons on Maison Valencourt bespoke craftsmanship and salon service.',
 };
 
+export const dynamic = 'force-dynamic';
+
 export default async function PublicTestimonialsPage() {
   const testimonials = await getPublicTestimonialsAction();
 

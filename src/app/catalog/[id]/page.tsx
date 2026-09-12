@@ -14,6 +14,8 @@ interface GarmentDetailPageProps {
   }>;
 }
 
+export const dynamic = 'force-dynamic';
+
 export async function generateMetadata({ params }: GarmentDetailPageProps) {
   const { id } = await params;
   const garment = await getGarmentDetailAction(id);
